@@ -24,6 +24,7 @@ class sspmod_fbs_Auth_Process_UKAGoogleApps extends SimpleSAML_Auth_ProcessingFi
         parent::__construct($config, $reserved);
 
         $this->_userfile = $config['userfile'];
+        $this->_accounts_url = $config['accounts_url'];
         $this->_docsurl = $config['docsurl'];
     }
 
@@ -99,6 +100,29 @@ class sspmod_fbs_Auth_Process_UKAGoogleApps extends SimpleSAML_Auth_ProcessingFi
     }
 
     private function loadUsernames() {
+        $data = json_decode(file_get_contents($this->_accounts_url), true);
+        if ($data === false) {
+            return $this->loadUsernamesFromCache();
+        }
+
+        $users = array();
+        foreach ($data as $account) {
+            foreach ($account['users'] as $user) {
+                if (!isset($users[$user['username']])) {
+                    $users[$user['username']] = array();
+                }
+
+                $users[$user['username']][] = $account['accountname'];
+            }
+        }
+
+        $this->saveUsernamesToCache($users);
+
+        return $users;
+
+    }
+
+    /*private function loadUsernamesFromGoogleDocs() {
         $data = file_get_contents($this->_docsurl);
         if ($data === false) {
             return $this->loadUsernamesFromCache();
@@ -125,7 +149,7 @@ class sspmod_fbs_Auth_Process_UKAGoogleApps extends SimpleSAML_Auth_ProcessingFi
         $this->saveUsernamesToCache($users);
 
         return $users;
-    }
+    }*/
 
     private function loadUsernamesFromCache() {
         $data = file_get_contents($this->_userfile);
