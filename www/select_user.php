@@ -34,7 +34,10 @@ if (isset($_POST['username'])) {
     }
 
     if (!is_null($selected)) {
-        $state['Attributes']['username'] = array($selected);
+        if (strpos($selected, "@") === false) {
+            $selected .= "@blindernuka.no";
+        }
+        $state['Attributes']['gapps-mail'] = array($selected);
         SimpleSAML_Auth_ProcessingChain::resumeProcessing($state);
     }
 }
