@@ -25,7 +25,6 @@ class sspmod_fbs_Auth_Process_UKAGoogleApps extends SimpleSAML_Auth_ProcessingFi
 
         $this->_userfile = $config['userfile'];
         $this->_accounts_url = $config['accounts_url'];
-        $this->_docsurl = $config['docsurl'];
     }
 
     /**
@@ -121,35 +120,6 @@ class sspmod_fbs_Auth_Process_UKAGoogleApps extends SimpleSAML_Auth_ProcessingFi
         return $users;
 
     }
-
-    /*private function loadUsernamesFromGoogleDocs() {
-        $data = file_get_contents($this->_docsurl);
-        if ($data === false) {
-            return $this->loadUsernamesFromCache();
-        }
-
-        $users = array();
-        $i = 0;
-        foreach (preg_split('/\\r?\\n/', $data) as $line) {
-            if ($i++ < 2) {
-                continue;
-            }
-
-            $row = explode(',', $line); // avdeling, uka-bruker, foreningsbruker, aktiv
-
-            if ($row[1] !== '' && $row[2] !== '' && $row[3] === 'TRUE') {
-                if (!isset($users[$row[2]])) {
-                    $users[$row[2]] = array();
-                }
-
-                $users[$row[2]][] = $row[1];
-            }
-        }
-
-        $this->saveUsernamesToCache($users);
-
-        return $users;
-    }*/
 
     private function loadUsernamesFromCache() {
         $data = file_get_contents($this->_userfile);
