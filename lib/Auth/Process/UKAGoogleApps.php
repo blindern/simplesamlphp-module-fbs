@@ -54,7 +54,12 @@ class sspmod_fbs_Auth_Process_UKAGoogleApps extends SimpleSAML_Auth_ProcessingFi
 
         // only one user? use it
         if (count($usernames) == 1) {
-            $state['Attributes']['username'] = array($usernames[0]);
+            $selected = $usernames[0];
+            if (strpos($selected, "@") === false) {
+                $selected .= "@blindernuka.no";
+            }
+
+            $state['Attributes']['gapps-mail'] = array($selected);
             return;
         }
 
