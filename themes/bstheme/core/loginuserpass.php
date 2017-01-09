@@ -77,6 +77,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
+  <meta name="prerender-status-code" content="401" />
   <title><?php echo $title; ?></title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
