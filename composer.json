@@ -1,0 +1,11 @@
+{
+  "name": "blindern/simplesamlphp-module-fbs",
+  "description": "Provides custom FBS setup support to SimpleSAMLphp",
+  "license": "MIT",
+  "keywords": ["authentication", "foreningenbs"],
+  "type": "simplesamlphp-module",
+  "homepage": "https://github.com/blindern/simplesamlphp-module-fbs",
+  "require": {
+    "simplesamlphp/composer-module-installer": "~1.1"
+  }
+}
