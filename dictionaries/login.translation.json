@@ -1,0 +1,26 @@
+{
+  "username": {
+    "no": "Brukernavn eller e-post"
+  },
+  "password": {
+    "no": "Passord"
+  },
+  "user_pass_header": {
+    "no": "Logg inn"
+  },
+  "user_pass_text": {
+    "no": "En tjeneste har bedt om bekreftelse p\u00e5 din identitet."
+  },
+  "help_text": {
+    "no": "Dersom du har glemt passord eller har andre problemer, sendt en e-post til <a href='mailto:it-gruppa@foreningenbs.no'>it-gruppa@foreningenbs.no</a>."
+  },
+  "remember_me": {
+    "no": "Husk meg"
+  },
+  "create_user": {
+    "no": "Opprett bruker"
+  },
+  "auth_text": {
+    "no": "Pålogging til fellestjenester"
+  }
+}

@@ -100,7 +100,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
           Foreningen Blindern Studenterhjem
         </a>
       </div>
-      <p class="navbar-text navbar-right">Pålogging til fellestjenester</p>
+      <p class="navbar-text navbar-right"><?php echo $this->t('{fbs:login:auth_text}'); ?></p>
     </div>
   </div>
 
@@ -108,9 +108,9 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
     <?php echo $htmlContentPre; ?>
 
     <div class="page-header">
-      <h1><?php echo $this->t('{multiauth:multiauth:select_source_header}'); ?></h1>
+      <h1><?php echo $this->t('{fbs:login:user_pass_header}'); ?></h1>
     </div>
-    <p class="logintext"><?php echo $this->t('{login:user_pass_text}'); ?></p>
+    <p class="logintext"><?php echo $this->t('{fbs:login:user_pass_text}'); ?></p>
 
     <div class="row">
       <div class="col-md-6">
@@ -129,7 +129,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
 
             <p>
               <button type="submit" class="btn btn-primary" name="<?php echo htmlspecialchars($name); ?>" value="1">
-                <?php echo htmlspecialchars($this->t($source['text'])); ?>
+                <?php echo htmlspecialchars($source['text']); ?>
               </button>
             </p>
 
@@ -138,7 +138,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
           ?>
 
           <p>
-            <a class="btn btn-success" href="https://foreningenbs.no/intern/register">Registrer ny bruker</a>
+            <a class="btn btn-success" href="https://foreningenbs.no/intern/register"><?php echo $this->t('{fbs:login:create_user}'); ?></a>
           </p>
 
         </form>
@@ -146,7 +146,9 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
       </div>
     </div>
 
-    <p>Dersom du har glemt passord eller har andre problemer, sendt en e-post til <a href='mailto:it-gruppa@foreningenbs.no'>it-gruppa@foreningenbs.no</a>.</p>
+    <p>
+        <?php echo $this->t('{fbs:login:help_text}'); ?>
+    </p>
 
     <?php
 

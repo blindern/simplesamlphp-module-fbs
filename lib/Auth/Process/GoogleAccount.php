@@ -1,7 +1,5 @@
 <?php
 
-use \sspmod_fbs_Auth_Process_GoogleAccount;
-
 /**
  * Google Account mapper to foreningenbs.no-account
  */

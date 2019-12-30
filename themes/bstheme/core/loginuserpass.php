@@ -1,6 +1,6 @@
 <?php
 
-$this->data['header'] = $this->t('{login:user_pass_header}');
+$this->data['header'] = $this->t('{fbs:login:user_pass_header}');
 
 if (strlen($this->data['username']) > 0) {
   $this->data['autofocus'] = 'password';
@@ -100,7 +100,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
           Foreningen Blindern Studenterhjem
         </a>
       </div>
-      <p class="navbar-text navbar-right">Pålogging til fellestjenester</p>
+      <p class="navbar-text navbar-right"><?php echo $this->t('{fbs:login:auth_text}'); ?></p>
     </div>
   </div>
 
@@ -119,9 +119,9 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
     ?>
 
     <div class="page-header">
-      <h1><?php echo $this->t('{login:user_pass_header}'); ?></h1>
+      <h1><?php echo $this->t('{fbs:login:user_pass_header}'); ?></h1>
     </div>
-    <p class="logintext"><?php echo $this->t('{login:user_pass_text}'); ?></p>
+    <p class="logintext"><?php echo $this->t('{fbs:login:user_pass_text}'); ?></p>
 
     <div class="row">
       <div class="col-md-6">
@@ -133,14 +133,14 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
           ?>
 
           <div class="form-group">
-            <label for="form_username" class="col-lg-4 control-label"><?php echo $this->t('{login:username}'); ?></label>
+            <label for="form_username" class="col-lg-4 control-label"><?php echo $this->t('{fbs:login:username}'); ?></label>
             <div class="col-lg-8">
               <input type="text" class="form-control" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>">
             </div>
           </div>
 
           <div class="form-group">
-            <label for="form_password" class="col-lg-4 control-label"><?php echo $this->t('{login:password}'); ?></label>
+            <label for="form_password" class="col-lg-4 control-label"><?php echo $this->t('{fbs:login:password}'); ?></label>
             <div class="col-lg-8">
               <input type="password" class="form-control" name="password">
             </div>
@@ -151,7 +151,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
               <div class="col-lg-offset-4 col-lg-8">
                 <div class="checkbox">
                   <label>
-                    <input name="remember_username" type="checkbox" value="Yes"<?php $this->data['rememberUsernameChecked'] ? 'checked' : ''; ?>> <?php echo $this->t('{login:remember_username}'); ?>
+                    <input name="remember_username" type="checkbox" value="Yes"<?php $this->data['rememberUsernameChecked'] ? ' checked' : ''; ?>> <?php echo $this->t('{login:remember_username}'); ?>
                   </label>
                 </div>
               </div>
@@ -163,7 +163,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
               <div class="col-lg-offset-4 col-lg-8">
                 <div class="checkbox">
                   <label>
-                    <input name="remember_me" type="checkbox" value="Yes"<?php $this->data['rememberMeChecked'] ? 'checked' : ''; ?>> <?php echo $this->t('{login:remember_me}'); ?>
+                    <input name="remember_me" type="checkbox" value="Yes"<?php $this->data['rememberMeChecked'] ? 'checked' : ''; ?>> <?php echo $this->t('{fbs:login:remember_me}'); ?>
                   </label>
                 </div>
               </div>
@@ -173,7 +173,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
           <div class="form-group">
             <div class="col-lg-offset-4 col-lg-8">
               <input type="submit" class="btn btn-default" value="<?php echo $this->t('{login:login_button}'); ?>">
-              <a href="https://foreningenbs.no/intern/register" style="margin-left: 10px">Opprett bruker</a>
+              <a href="https://foreningenbs.no/intern/register" style="margin-left: 10px"><?php echo $this->t('{fbs:login:create_user}'); ?></a>
             </div>
           </div>
         </form>
@@ -219,7 +219,9 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
     */
     ?>
 
-    <p>Dersom du har glemt passord eller har andre problemer, sendt en e-post til <a href='mailto:it-gruppa@foreningenbs.no'>it-gruppa@foreningenbs.no</a>.</p>
+    <p>
+        <?php echo $this->t('{fbs:login:help_text}'); ?>
+    </p>
 
     <?php
 

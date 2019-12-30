@@ -1,0 +1,26 @@
+{
+  "username": {
+    "en": "Username or email"
+  },
+  "password": {
+    "en": "Password"
+  },
+  "user_pass_header": {
+    "en": "Log in"
+  },
+  "user_pass_text": {
+    "en": "A service has requested you to authenticate yourself."
+  },
+  "help_text": {
+    "en": "If you ahve forgotten your password or have other problems, send an email to <a href='mailto:it-gruppa@foreningenbs.no'>it-gruppa@foreningenbs.no</a>."
+  },
+  "remember_me": {
+    "en": "Remember me"
+  },
+  "create_user": {
+    "en": "Create user"
+  },
+  "auth_text": {
+    "en": "Single sign on"
+  }
+}
