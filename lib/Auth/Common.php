@@ -1,11 +1,13 @@
 <?php
 
+namespace SimpleSAML\Module\fbs\Auth;
+
 /**
  * Specialized authentication module for FBS' auth system
  *
  * @see https://github.com/blindern/users-api
  */
-class sspmod_fbs_Auth_Common {
+class Common {
 
     private $api_url;
     private $hmac_key;
@@ -131,11 +133,11 @@ class sspmod_fbs_Auth_Common {
         curl_close($ch);
 
         if ($reply === false) {
-            throw new SimpleSAML_Error_Error('curl_exec failed');
+            throw new \SimpleSAML\Error\Error('curl_exec failed');
         }
 
         if ($status != 200) {
-            throw new SimpleSAML_Error_Error('unknown users-api error');
+            throw new \SimpleSAML\Error\Error('unknown users-api error');
         }
 
         $reply = json_decode($reply, true);

@@ -1,11 +1,11 @@
 <?php
 
-$globalConfig = SimpleSAML_Configuration::getInstance();
+$globalConfig = SimpleSAML\Configuration::getInstance();
 
-SimpleSAML_Logger::info('FBS - UKA Google Apps user selection: Accessing interface');
+SimpleSAML\Logger::info('FBS - UKA Google Apps user selection: Accessing interface');
 
 if (!isset($_REQUEST['StateId'])) {
-    throw new SimpleSAML_Error_BadRequest(
+    throw new SimpleSAML\Error\BadRequest(
         'Missing required StateId query parameter.'
     );
 }
@@ -13,12 +13,12 @@ if (!isset($_REQUEST['StateId'])) {
 $id = $_REQUEST['StateId'];
 
 // sanitize the input
-$sid = SimpleSAML_Utilities::parseStateID($id);
+$sid = SimpleSAML\Utilities::parseStateID($id);
 if (!is_null($sid['url'])) {
-    SimpleSAML_Utilities::checkURLAllowed($sid['url']);
+    SimpleSAML\Utilities::checkURLAllowed($sid['url']);
 }
 
-$state = SimpleSAML_Auth_State::loadState($id, 'fbs:request');
+$state = SimpleSAML\Auth\State::loadState($id, 'fbs:request');
 
 $usernames = $state['fbs:usernames'];
 
@@ -38,15 +38,15 @@ if (isset($_POST['username'])) {
             $selected .= "@blindernuka.no";
         }
         $state['Attributes']['gapps-mail'] = array($selected);
-        SimpleSAML_Auth_ProcessingChain::resumeProcessing($state);
+        SimpleSAML\Auth\ProcessingChain::resumeProcessing($state);
     }
 }
 
 // Make, populate and layout consent form
-$t = new SimpleSAML_XHTML_Template($globalConfig, 'fbs:select_user.php');
+$t = new SimpleSAML\XHTML\Template($globalConfig, 'fbs:select_user.php');
 $t->data['srcMetadata'] = $state['Source'];
 $t->data['dstMetadata'] = $state['Destination'];
-$t->data['formAction'] = SimpleSAML_Module::getModuleURL('fbs/select_user.php');
+$t->data['formAction'] = SimpleSAML\Module::getModuleURL('fbs/select_user.php');
 $t->data['formData'] = array('StateId' => $id);
 $t->data['attributes'] = $state['Attributes'];
 $t->data['usernames'] = $usernames;

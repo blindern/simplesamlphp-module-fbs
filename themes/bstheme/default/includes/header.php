@@ -24,7 +24,7 @@ if (array_key_exists('pageid', $this->data)) {
 		'page' => $this->data['pageid']
 	);
 
-	SimpleSAML_Module::callHooks('htmlinject', $hookinfo);
+	\SimpleSAML\Module::callHooks('htmlinject', $hookinfo);
 }
 // - o - o - o - o - o - o - o - o - o - o - o - o -
 
@@ -200,7 +200,7 @@ if($onLoad !== '') {
 				if ($current) {
 					$textarray[] = $langnames[$lang];
 				} else {
-					$textarray[] = '<a href="' . htmlspecialchars(SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), array($this->languageParameterName => $lang))) . '">' .
+					$textarray[] = '<a href="' . htmlspecialchars(\SimpleSAML\Utilities::addURLparameter(\SimpleSAML\Utilities::selfURL(), array($this->languageParameterName => $lang))) . '">' .
 						$langnames[$lang] . '</a>';
 				}
 			}

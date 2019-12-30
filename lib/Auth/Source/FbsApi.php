@@ -1,11 +1,15 @@
 <?php
 
+namespace SimpleSAML\Module\fbs\Auth\Source;
+
+use SimpleSAML\Module\fbs\Auth\Common;
+
 /**
  * Specialized authentication module for FBS' auth system
  *
  * @see https://github.com/blindern/users-api
  */
-class sspmod_fbs_Auth_Source_FbsApi extends sspmod_core_Auth_UserPassBase {
+class FbsApi extends \SimpleSAML\Module\core\Auth\UserPassBase {
 
     private $api_url;
     private $hmac_key;
@@ -23,8 +27,7 @@ class sspmod_fbs_Auth_Source_FbsApi extends sspmod_core_Auth_UserPassBase {
         /* Call the parent constructor first, as required by the interface. */
         parent::__construct($info, $config);
 
-        $this->api = new sspmod_fbs_Auth_Common($config['api_url'],
-                                          $config['hmac_key']);
+        $this->api = new Common($config['api_url'], $config['hmac_key']);
     }
 
     /**
@@ -32,7 +35,7 @@ class sspmod_fbs_Auth_Source_FbsApi extends sspmod_core_Auth_UserPassBase {
      *
      * On a successful login, this function should return the users attributes. On failure,
      * it should throw an exception. If the error was caused by the user entering the wrong
-     * username or password, a SimpleSAML_Error_Error('WRONGUSERPASS') should be thrown.
+     * username or password, a \SimpleSAML\Error\Error('WRONGUSERPASS') should be thrown.
      *
      * Note that both the username and the password are UTF-8 encoded.
      *
@@ -53,6 +56,6 @@ class sspmod_fbs_Auth_Source_FbsApi extends sspmod_core_Auth_UserPassBase {
             }
         }
 
-        throw new SimpleSAML_Error_Error('WRONGUSERPASS');
+        throw new \SimpleSAML\Error\Error('WRONGUSERPASS');
     }
 }

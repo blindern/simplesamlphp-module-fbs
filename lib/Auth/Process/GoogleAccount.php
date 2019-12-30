@@ -1,9 +1,13 @@
 <?php
 
+namespace SimpleSAML\Module\fbs\Auth\Process;
+
+use SimpleSAML\Module\fbs\Auth\Common;
+
 /**
  * Google Account mapper to foreningenbs.no-account
  */
-class sspmod_fbs_Auth_Process_GoogleAccount extends SimpleSAML_Auth_ProcessingFilter
+class GoogleAccount extends \SimpleSAML\Auth\ProcessingFilter
 {
     /**
      * Initialize consent filter
@@ -18,8 +22,7 @@ class sspmod_fbs_Auth_Process_GoogleAccount extends SimpleSAML_Auth_ProcessingFi
         assert('is_array($config)');
         parent::__construct($config, $reserved);
 
-        $this->api = new sspmod_fbs_Auth_Common($config['api_url'],
-                                          $config['hmac_key']);
+        $this->api = new Common($config['api_url'], $config['hmac_key']);
     }
 
     /**
@@ -43,7 +46,7 @@ class sspmod_fbs_Auth_Process_GoogleAccount extends SimpleSAML_Auth_ProcessingFi
         $spEntityId = $state['Destination']['entityid'];
         $idpEntityId = $state['Source']['entityid'];
 
-        $metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
+        $metadata = \SimpleSAML\Metadata\MetaDataStorageHandler::getMetadataHandler();
 
         // not a google login? just go to next filter
         // (of our auth backends only google should provide the email_verified attribute)
@@ -63,7 +66,7 @@ class sspmod_fbs_Auth_Process_GoogleAccount extends SimpleSAML_Auth_ProcessingFi
         if (count($usernames) == 1) {
             $user = $this->api->getUser($usernames[0]);
             if (!is_array($user)) {
-                throw new SimpleSAML_Error_Error('could not fetch user details');
+                throw new \SimpleSAML\Error\Error('could not fetch user details');
             }
 
             $state['Attributes'] = $user;
@@ -73,15 +76,15 @@ class sspmod_fbs_Auth_Process_GoogleAccount extends SimpleSAML_Auth_ProcessingFi
         $state['fbs:usernames'] = $usernames;
 
         // Save state and redirect
-        $id  = SimpleSAML_Auth_State::saveState($state, 'fbs:request');
-        $url = SimpleSAML_Module::getModuleURL('fbs/google_login_error.php');
-        SimpleSAML_Utilities::redirectTrustedURL($url, array('StateId' => $id));
+        $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
+        $url = \SimpleSAML\Module::getModuleURL('fbs/google_login_error.php');
+        \SimpleSAML\Utilities::redirectTrustedURL($url, array('StateId' => $id));
     }
 
-    public static function finishLogoutRedirect(SimpleSAML_IdP $idp, array $state)
+    public static function finishLogoutRedirect(\SimpleSAML\IdP $idp, array $state)
     {
-        $id  = SimpleSAML_Auth_State::saveState($state, 'fbs:request');
-        $url = SimpleSAML_Module::getModuleURL('fbs/google_login_error.php');
-        SimpleSAML_Utilities::redirectTrustedURL($url, array('StateId' => $id));
+        $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
+        $url = \SimpleSAML\Module::getModuleURL('fbs/google_login_error.php');
+        \SimpleSAML\Utilities::redirectTrustedURL($url, array('StateId' => $id));
     }
 }

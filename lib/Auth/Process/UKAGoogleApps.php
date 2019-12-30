@@ -1,12 +1,14 @@
 <?php
 
+namespace SimpleSAML\Module\fbs\Auth\Process;
+
 /**
  * UKA Google Apps Authentication Processing filter
  *
  * Allows the user to select which account at UKA to login to,
  * if any at all is possible.
  */
-class sspmod_fbs_Auth_Process_UKAGoogleApps extends SimpleSAML_Auth_ProcessingFilter
+class UKAGoogleApps extends \SimpleSAML\Auth\ProcessingFilter
 {
     private $_userfile;
 
@@ -48,7 +50,7 @@ class sspmod_fbs_Auth_Process_UKAGoogleApps extends SimpleSAML_Auth_ProcessingFi
         $spEntityId = $state['Destination']['entityid'];
         $idpEntityId = $state['Source']['entityid'];
 
-        $metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
+        $metadata = \SimpleSAML\Metadata\MetaDataStorageHandler::getMetadataHandler();
 
         $usernames = $this->getUsernames($state['Attributes']['username'][0]);
 
@@ -81,16 +83,16 @@ class sspmod_fbs_Auth_Process_UKAGoogleApps extends SimpleSAML_Auth_ProcessingFi
 
         // User interaction nessesary. Throw exception on isPassive request
         if (isset($state['isPassive']) && $state['isPassive'] == true) {
-            SimpleSAML_Stats::log('consent:nopassive', $statsData);
-            throw new SimpleSAML_Error_NoPassive(
+            \SimpleSAML\Stats::log('consent:nopassive', $statsData);
+            throw new \SimpleSAML\Error\NoPassive(
                 'Unable to give consent on passive request.'
             );
         }
 
         // Save state and redirect
-        $id  = SimpleSAML_Auth_State::saveState($state, 'fbs:request');
-        $url = SimpleSAML_Module::getModuleURL('fbs/select_user.php');
-        SimpleSAML_Utilities::redirectTrustedURL($url, array('StateId' => $id));
+        $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
+        $url = \SimpleSAML\Module::getModuleURL('fbs/select_user.php');
+        \SimpleSAML\Utilities::redirectTrustedURL($url, array('StateId' => $id));
     }
 
     private function getUsernames($username) {
