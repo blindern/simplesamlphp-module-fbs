@@ -16,6 +16,7 @@ $metadata['google.com/a/blindernuka.no'] = array(
     10 => array(
       'class' => 'fbs:UKAGoogleApps',
       'accounts_url' => 'https://foreningenbs.no/intern/api/googleapps/accounts',
+      'accounts_url_auth_token' => 'secret-value-goes-here',
       'userfile' => dirname(__DIR__) . '/config/ukausers.txt'
     )
   )

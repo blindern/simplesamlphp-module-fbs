@@ -27,6 +27,7 @@ class UKAGoogleApps extends \SimpleSAML\Auth\ProcessingFilter
 
         $this->_userfile = $config['userfile'];
         $this->_accounts_url = $config['accounts_url'];
+        $this->_accounts_url_auth_token = $config['accounts_url_auth_token'];
     }
 
     /**
@@ -106,7 +107,14 @@ class UKAGoogleApps extends \SimpleSAML\Auth\ProcessingFilter
     }
 
     private function loadUsernames() {
-        $data = json_decode(file_get_contents($this->_accounts_url), true);
+        $context = stream_context_create([
+            'http' => [
+                'header' => "Authorization: Bearer {$this->_accounts_url_auth_token}\r\n",
+            ],
+        ]);
+
+        $data = file_get_contents($this->_accounts_url, false, $context);
+        $data = json_decode($data, true);
         if ($data === false) {
             return $this->loadUsernamesFromCache();
         }
