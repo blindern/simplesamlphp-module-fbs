@@ -223,6 +223,10 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
         <?php echo $this->t('{fbs:login:help_text}'); ?>
     </p>
 
+    <p>
+      Foreningen Blindern Studenterhjem - org.nr <a href="https://w2.brreg.no/enhet/sok/detalj.jsp?orgnr=982118387">982 118 387</a>
+    </p>
+
     <?php
 
     /*
