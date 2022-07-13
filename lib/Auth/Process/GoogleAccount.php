@@ -10,6 +10,11 @@ use SimpleSAML\Module\fbs\Auth\Common;
 class GoogleAccount extends \SimpleSAML\Auth\ProcessingFilter
 {
     /**
+     * @var string
+     */
+    private $attribute_prefix;
+
+    /**
      * Initialize consent filter
      *
      * Validates and parses the configuration
@@ -21,6 +26,8 @@ class GoogleAccount extends \SimpleSAML\Auth\ProcessingFilter
     {
         assert('is_array($config)');
         parent::__construct($config, $reserved);
+
+        $this->attribute_prefix = $config['attribute_prefix'];
 
         $this->api = new Common($config['api_url'], $config['hmac_key']);
     }
@@ -48,18 +55,19 @@ class GoogleAccount extends \SimpleSAML\Auth\ProcessingFilter
 
         $metadata = \SimpleSAML\Metadata\MetaDataStorageHandler::getMetadataHandler();
 
-        // not a google login? just go to next filter
-        // (of our auth backends only google should provide the email_verified attribute)
-        if (!isset($state['Attributes']['email_verified'])) {
+        // The attribute prefix is used to let us know if the authentication
+        // data is coming from Google OIDC or not.
+        // It must be configured the same for auth source and this processing filter.
+
+        if (!isset($state['Attributes'][$this->attribute_prefix . 'email_verified'])) {
             return;
         }
 
-        if (!$state['Attributes']['email_verified']) {
-            die('email not verified');
+        if (!$state['Attributes'][$this->attribute_prefix . 'email_verified']) {
+            throw new \SimpleSAML\Error\Error('email not verified');
         }
 
-
-        $email = $state['Attributes']['email'][0];
+        $email = $state['Attributes'][$this->attribute_prefix . 'email'][0];
         $usernames = $this->api->getUsernames($email);
 
         // only one user? use it
