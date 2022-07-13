@@ -200,7 +200,7 @@ if($onLoad !== '') {
 				if ($current) {
 					$textarray[] = $langnames[$lang];
 				} else {
-					$textarray[] = '<a href="' . htmlspecialchars(\SimpleSAML\Utilities::addURLparameter(\SimpleSAML\Utilities::selfURL(), array($this->languageParameterName => $lang))) . '">' .
+					$textarray[] = '<a href="' . htmlspecialchars(\SimpleSAML\Utils\HTTP::addURLParameters(\SimpleSAML\Utils\HTTP::getSelfURL(), array($this->languageParameterName => $lang))) . '">' .
 						$langnames[$lang] . '</a>';
 				}
 			}

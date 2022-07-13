@@ -85,7 +85,7 @@ class UKAGoogleApps extends \SimpleSAML\Auth\ProcessingFilter
         // User interaction nessesary. Throw exception on isPassive request
         if (isset($state['isPassive']) && $state['isPassive'] == true) {
             \SimpleSAML\Stats::log('consent:nopassive', $statsData);
-            throw new \SimpleSAML\Error\NoPassive(
+            throw new \SimpleSAML\Module\saml\Error\NoPassive(
                 'Unable to give consent on passive request.'
             );
         }
@@ -93,7 +93,7 @@ class UKAGoogleApps extends \SimpleSAML\Auth\ProcessingFilter
         // Save state and redirect
         $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
         $url = \SimpleSAML\Module::getModuleURL('fbs/select_user.php');
-        \SimpleSAML\Utilities::redirectTrustedURL($url, array('StateId' => $id));
+        \SimpleSAML\Utils\HTTP::redirectTrustedURL($url, array('StateId' => $id));
     }
 
     private function getUsernames($username) {

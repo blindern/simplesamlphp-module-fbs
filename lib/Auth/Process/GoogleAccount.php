@@ -78,13 +78,13 @@ class GoogleAccount extends \SimpleSAML\Auth\ProcessingFilter
         // Save state and redirect
         $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
         $url = \SimpleSAML\Module::getModuleURL('fbs/google_login_error.php');
-        \SimpleSAML\Utilities::redirectTrustedURL($url, array('StateId' => $id));
+        \SimpleSAML\Utils\HTTP::redirectTrustedURL($url, array('StateId' => $id));
     }
 
     public static function finishLogoutRedirect(\SimpleSAML\IdP $idp, array $state)
     {
         $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
         $url = \SimpleSAML\Module::getModuleURL('fbs/google_login_error.php');
-        \SimpleSAML\Utilities::redirectTrustedURL($url, array('StateId' => $id));
+        \SimpleSAML\Utils\HTTP::redirectTrustedURL($url, array('StateId' => $id));
     }
 }

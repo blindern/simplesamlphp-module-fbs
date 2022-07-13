@@ -13,9 +13,9 @@ if (!isset($_REQUEST['StateId'])) {
 $id = $_REQUEST['StateId'];
 
 // sanitize the input
-$sid = \SimpleSAML\Utilities::parseStateID($id);
+$sid = \SimpleSAML\Auth\State::parseStateID($id);
 if (!is_null($sid['url'])) {
-    \SimpleSAML\Utilities::checkURLAllowed($sid['url']);
+    \SimpleSAML\Utils\HTTP::checkURLAllowed($sid['url']);
 }
 
 $state = \SimpleSAML\Auth\State::loadState($id, 'fbs:request');

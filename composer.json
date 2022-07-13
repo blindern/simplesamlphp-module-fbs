@@ -7,5 +7,10 @@
   "homepage": "https://github.com/blindern/simplesamlphp-module-fbs",
   "require": {
     "simplesamlphp/composer-module-installer": "~1.1"
+  },
+  "config": {
+    "allow-plugins": {
+      "simplesamlphp/composer-module-installer": true
+    }
   }
 }
