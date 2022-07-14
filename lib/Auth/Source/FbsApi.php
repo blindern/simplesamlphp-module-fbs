@@ -11,8 +11,10 @@ use SimpleSAML\Module\fbs\Auth\Common;
  */
 class FbsApi extends \SimpleSAML\Module\core\Auth\UserPassBase {
 
-    private $api_url;
-    private $hmac_key;
+    /**
+     * @var Common
+     */
+    private $api;
 
     /**
      * Constructor for this authentication source.
@@ -47,7 +49,7 @@ class FbsApi extends \SimpleSAML\Module\core\Auth\UserPassBase {
         assert('is_string($username)');
         assert('is_string($password)');
 
-        $usernames = $this->api->getUsernames($username);
+        $usernames = $this->api->listUsersByQuery($username);
 
         foreach ($usernames as $username) {
             $user = $this->api->tryCredentials($username, $password);

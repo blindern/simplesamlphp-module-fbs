@@ -1,6 +1,9 @@
 {
   "username": {
-    "no": "Brukernavn eller e-post"
+    "no": "Brukernavn"
+  },
+  "username_desc": {
+    "no": "Du kan angi enten brukernavn, e-postadresse eller telefonnummer"
   },
   "password": {
     "no": "Passord"

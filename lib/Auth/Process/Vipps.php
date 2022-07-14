@@ -73,9 +73,19 @@ class Vipps extends \SimpleSAML\Auth\ProcessingFilter
         }
 
         $email = $state['Attributes'][$this->attribute_prefix . 'email'][0];
-        $state['fbs:email'] = $email;
 
-        $usernames = $this->api->getUsernames($email);
+        // Skip country code.
+        $phoneNumber = substr($state['Attributes'][$this->attribute_prefix . 'phone_number'][0], 2);
+
+        $state['fbs:email'] = $email;
+        $state['fbs:phoneNumber'] = $phoneNumber;
+
+        $usernames = $this->api->listUsersByEmail($email);
+
+        // Try phone number if no matches on email.
+        if (count($usernames) == 0) {
+            $usernames = $this->api->listUsersByPhoneNumber($phoneNumber);
+        }
 
         // only one user? use it
         if (count($usernames) == 1) {

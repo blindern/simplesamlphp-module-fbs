@@ -136,6 +136,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
             <label for="form_username" class="col-lg-4 control-label"><?php echo $this->t('{fbs:login:username}'); ?></label>
             <div class="col-lg-8">
               <input type="text" class="form-control" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>">
+              <div class="help-block"><?php echo $this->t('{fbs:login:username_desc}'); ?></div>
             </div>
           </div>
 

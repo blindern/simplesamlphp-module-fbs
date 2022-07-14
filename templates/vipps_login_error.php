@@ -47,19 +47,20 @@ header('X-Frame-Options: SAMEORIGIN');
 
 
     $email = htmlspecialchars($this->data['email']);
+    $phoneNumber = htmlspecialchars($this->data['phoneNumber']);
 
-     if (count($this->data['usernames']) == 0) {
+    if (count($this->data['usernames']) == 0) {
         ?>
         <div class="alert alert-danger">
-            <p>Vi klarte ikke å finne en bruker registrert med adressen <b><?php echo $email; ?></b> i vårt system.</p>
-            <p>Du må ha registrert en foreningsbruker med den samme e-postadressen for å kunne logge inn via Vipps.</p>
+            <p>Vi klarte ikke å finne en bruker registrert med adressen <b><?php echo $email; ?></b> eller telefonnr <b><?php echo $phoneNumber; ?></b> i vårt system.</p>
+            <p>Du må ha registrert en foreningsbruker med den samme e-postadressen eller telefonnr for å kunne logge inn via Vipps.</p>
         </div>
         <p><a class="btn btn-success" href="https://foreningenbs.no/intern/register">Opprett bruker</a></p>
         <?php
     } else {
         ?>
         <div class="alert alert-danger">
-          <p>Det finnes flere brukere med e-postadressen <b><php echo $email; ?></b>, og vi kan derfor ikke logge deg inn.</p>
+          <p>Det finnes flere brukere med e-postadressen <b><?php echo $email; ?></b> og/eller telefonnr <b><?php echo $phoneNumber; ?></b>, og vi kan derfor ikke logge deg inn.</p>
         </div>
         <?php
     }

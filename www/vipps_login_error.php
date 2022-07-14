@@ -29,8 +29,8 @@ if ($idp->isAuthenticated()) {
         'core:Logout:URL' => $url,
         'fbs:usernames'   => $state['fbs:usernames'],
         'fbs:email'       => $state['fbs:email'],
+        'fbs:phoneNumber' => $state['fbs:phoneNumber'],
         'Attributes'      => $state['Attributes'],
-        'oidc:localLogout' => true,
     );
 
     $idp->handleLogoutRequest($newState, null);
@@ -38,6 +38,7 @@ if ($idp->isAuthenticated()) {
 
 $t = new \SimpleSAML\XHTML\Template($globalConfig, 'fbs:vipps_login_error.php');
 $t->data['email'] = $state['fbs:email'];
+$t->data['phoneNumber'] = $state['fbs:phoneNumber'];
 $t->data['usernames'] = $state['fbs:usernames'];
 
 $t->show();

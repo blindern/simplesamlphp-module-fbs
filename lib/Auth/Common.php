@@ -17,30 +17,61 @@ class Common {
         $this->hmac_key = $hmac_key;
     }
 
+    public function listUsersByEmail($email)
+    {
+        if (strpos($email, '@') === false) return [];
+
+        // Comma disallowed since it is used to separate multiple searches.
+        if (strpos($email, ',') !== false) return [];
+
+        $json = json_decode($this->apiGet('/users?emails=' . urlencode($email)), true);
+
+        $usernames = [];
+        foreach ($json['result'] as $user) {
+            $usernames[] = $user['username'];
+        }
+
+        return $usernames;
+    }
+
+    public function listUsersByPhoneNumber($phoneNumber)
+    {
+        // Comma disallowed since it is used to separate multiple searches.
+        if (strpos($phoneNumber, ',') !== false) return [];
+
+        $json = json_decode($this->apiGet('/users?phoneNumbers=' . urlencode($phoneNumber)), true);
+
+        $usernames = [];
+        foreach ($json['result'] as $user) {
+            $usernames[] = $user['username'];
+        }
+
+        return $usernames;
+    }
+
     /**
-     * Fetch all valid users which should be attempted logged in
+     * List users by lookup via query. This will lookup by both username, email and phone.
      */
-    public function getUsernames($username) {
-        // verify the user exists
-        $json = json_decode($this->apiGet('/user/' . rawurlencode($username)), true);
+    public function listUsersByQuery($query) {
+        // Test for username match.
+        $json = json_decode($this->apiGet('/user/' . rawurlencode($query)), true);
         if (!empty($json['result'])) {
             return array($json['result']['username']);
         }
 
-        // check if email and disallow any commas
-        if (strpos($username, '@') !== false && strpos($username, ',') === false) {
-            // lookup as a email
-            $json = json_decode($this->apiGet('/users?emails=' . urlencode($username)), true);
-
-            $usernames = array();
-            foreach ($json['result'] as $user) {
-                $usernames[] = $user['username'];
-            }
-
-            return $usernames;
+        // Test for email match.
+        $emailMatches = $this->listUsersByEmail($query);
+        if (count($emailMatches) > 0) {
+            return $emailMatches;
         }
 
-        return array();
+        // Test for phone number match.
+        $phoneNumberMatches = $this->listUsersByPhoneNumber($query);
+        if (count($phoneNumberMatches) > 0) {
+            return $phoneNumberMatches;
+        }
+
+        return [];
     }
 
     /**

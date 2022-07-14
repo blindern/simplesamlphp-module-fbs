@@ -75,7 +75,7 @@ class GoogleAccount extends \SimpleSAML\Auth\ProcessingFilter
         $email = $state['Attributes'][$this->attribute_prefix . 'email'][0];
         $state['fbs:email'] = $email;
 
-        $usernames = $this->api->getUsernames($email);
+        $usernames = $this->api->listUsersByEmail($email);
 
         // only one user? use it
         if (count($usernames) == 1) {
