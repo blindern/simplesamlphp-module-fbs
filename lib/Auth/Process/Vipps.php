@@ -5,9 +5,9 @@ namespace SimpleSAML\Module\fbs\Auth\Process;
 use SimpleSAML\Module\fbs\Auth\Common;
 
 /**
- * Google Account mapper to foreningenbs.no-account
+ * Vipps Logg Inn mapper to foreningenbs.no-account
  */
-class GoogleAccount extends \SimpleSAML\Auth\ProcessingFilter
+class Vipps extends \SimpleSAML\Auth\ProcessingFilter
 {
     /**
      * @var \SimpleSAML\Module\fbs\Auth\Common
@@ -61,7 +61,7 @@ class GoogleAccount extends \SimpleSAML\Auth\ProcessingFilter
         $metadata = \SimpleSAML\Metadata\MetaDataStorageHandler::getMetadataHandler();
 
         // The attribute prefix is used to let us know if the authentication
-        // data is coming from Google OIDC or not.
+        // data is coming from Vipps or not.
         // It must be configured the same for auth source and this processing filter.
 
         if (!isset($state['Attributes'][$this->attribute_prefix . 'email_verified'])) {
@@ -92,14 +92,14 @@ class GoogleAccount extends \SimpleSAML\Auth\ProcessingFilter
 
         // Save state and redirect
         $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
-        $url = \SimpleSAML\Module::getModuleURL('fbs/google_login_error.php');
+        $url = \SimpleSAML\Module::getModuleURL('fbs/vipps_login_error.php');
         \SimpleSAML\Utils\HTTP::redirectTrustedURL($url, array('StateId' => $id));
     }
 
     public static function finishLogoutRedirect(\SimpleSAML\IdP $idp, array $state)
     {
         $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
-        $url = \SimpleSAML\Module::getModuleURL('fbs/google_login_error.php');
+        $url = \SimpleSAML\Module::getModuleURL('fbs/vipps_login_error.php');
         \SimpleSAML\Utils\HTTP::redirectTrustedURL($url, array('StateId' => $id));
     }
 }

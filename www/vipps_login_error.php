@@ -2,7 +2,7 @@
 
 $globalConfig = \SimpleSAML\Configuration::getInstance();
 
-\SimpleSAML\Logger::info('FBS - Google Account error');
+\SimpleSAML\Logger::info('FBS - Vipps error');
 
 if (!isset($_REQUEST['StateId'])) {
     throw new \SimpleSAML\Error\BadRequest(
@@ -23,19 +23,20 @@ $state = \SimpleSAML\Auth\State::loadState($id, 'fbs:request');
 $idp = \SimpleSAML\IdP::getByState($state);
 if ($idp->isAuthenticated()) {
     $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
-    $url = \SimpleSAML\Module::getModuleURL('fbs/google_login_error.php');
+    $url = \SimpleSAML\Module::getModuleURL('fbs/vipps_login_error.php');
     $newState = array(
-        'Responder'       => array('\\SimpleSAML\\Module\\fbs\\Auth\\Process\\GoogleAccount', 'finishLogoutRedirect'),
+        'Responder'       => array('\\SimpleSAML\\Module\\fbs\\Auth\\Process\\Vipps', 'finishLogoutRedirect'),
         'core:Logout:URL' => $url,
-        'fbs:email'       => $state['fbs:email'],
         'fbs:usernames'   => $state['fbs:usernames'],
+        'fbs:email'       => $state['fbs:email'],
         'Attributes'      => $state['Attributes'],
+        'oidc:localLogout' => true,
     );
 
     $idp->handleLogoutRequest($newState, null);
 }
 
-$t = new \SimpleSAML\XHTML\Template($globalConfig, 'fbs:google_login_error.php');
+$t = new \SimpleSAML\XHTML\Template($globalConfig, 'fbs:vipps_login_error.php');
 $t->data['email'] = $state['fbs:email'];
 $t->data['usernames'] = $state['fbs:usernames'];
 

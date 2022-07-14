@@ -18,7 +18,7 @@ header('X-Frame-Options: SAMEORIGIN');
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>UKA på Blindern - pålogging Google Apps</title>
+  <title>Foreningen Blindern Studenterhjem</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="icon" type="image/icon" href="/<?php echo $this->data['baseurlpath']; ?>resources/icons/favicon.ico" />
 </head>
@@ -37,7 +37,7 @@ header('X-Frame-Options: SAMEORIGIN');
 
   <div class="container">
     <div class="page-header">
-      <h1>Pålogging med Google</h1>
+      <h1>Pålogging med Vipps</h1>
     </div>
 
     <?php
@@ -52,7 +52,7 @@ header('X-Frame-Options: SAMEORIGIN');
         ?>
         <div class="alert alert-danger">
             <p>Vi klarte ikke å finne en bruker registrert med adressen <b><?php echo $email; ?></b> i vårt system.</p>
-            <p>Du må ha registrert en foreningsbruker med den samme e-postadressen for å kunne logge inn via Google.</p>
+            <p>Du må ha registrert en foreningsbruker med den samme e-postadressen for å kunne logge inn via Vipps.</p>
         </div>
         <p><a class="btn btn-success" href="https://foreningenbs.no/intern/register">Opprett bruker</a></p>
         <?php
