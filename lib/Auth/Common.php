@@ -79,7 +79,7 @@ class Common {
      */
     public function generateHMACHash($time, $method, $uri, $post_variables)
     {
-        $data = json_encode(array((string)$time, $method, $uri, (array)$post_variables));
+        $data = json_encode(array((string)$time, $method, $uri, (array)$post_variables), JSON_UNESCAPED_UNICODE);
         return hash_hmac('sha256', $data, $this->hmac_key);
     }
 
