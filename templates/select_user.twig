@@ -1,0 +1,36 @@
+{% extends "@fbs/base.twig" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Pålogging til Google Apps for UKA</h1>
+  </div>
+
+  <p>Du er innlogget som
+    {{ realname }}
+    ({{ username }}).</p>
+
+  {% if usernames|length == 0 %}
+    <div class="alert alert-danger">
+      <p>Du har dessverre ingen rettigheter hos UKA og kan ikke logge på noen kontoer der.</p>
+      <p>Hvis dette er feil kontakt IKT-ansvarlig på
+        <a href="mailto:admin@blindernuka.no">admin@blindernuka.no</a>.</p>
+    </div>
+  {% else %}
+    <p>Velg UKA-bruker du ønsker å logge inn på:</p>
+
+    <div class="form-group">
+      <form action="{{ moduleURL('fbs/select-user', {'StateId': StateId}) }}" method="post">
+        {% for username in usernames %}
+          <input class="btn btn-default" type="submit" name="username" value="{{ username }}" style="margin-right: 8px">
+        {% endfor %}
+      </form>
+    </div>
+
+    <p>Hvis du skulle hatt tilgang til flere brukere, kontakt IKT-ansvarlig på
+      <a href="mailto:admin@blindernuka.no">admin@blindernuka.no</a>.</p>
+  {% endif %}
+
+  <p>
+    <a href="/simplesaml/saml2/idp/SingleLogoutService.php?ReturnTo=https%3A%2F%2Fforeningenbs.no">Logg ut</a>
+  </p>
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "@fbs/base.twig" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Pålogging med Google</h1>
+  </div>
+
+  {% if usernames|length == 0 %}
+    <div class="alert alert-danger">
+      <p>Vi klarte ikke å finne en bruker registrert med adressen
+        <b>{{ email }}</b>
+        i vårt system.</p>
+      <p>Du må ha registrert en foreningsbruker med den samme e-postadressen for å kunne logge inn via Google.</p>
+    </div>
+    <p>
+      <a class="btn btn-success" href="https://foreningenbs.no/intern/register">Opprett bruker</a>
+    </p>
+  {% else %}
+    <div class="alert alert-danger">
+      <p>Det finnes flere brukere med e-postadressen
+        <b>{{ email }}</b>, og vi kan derfor ikke logge deg inn.</p>
+    </div>
+  {% endif %}
+{% endblock content %}

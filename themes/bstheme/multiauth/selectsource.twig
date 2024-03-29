@@ -1,0 +1,33 @@
+{% set pagetitle = 'Logg inn'|trans %}
+{% extends "@fbs/base.twig" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>{{ "Logg inn"|trans }}</h1>
+  </div>
+  <p class="logintext">{{ "En tjeneste har bedt om bekreftelse på din identitet."|trans }}</p>
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <form>
+        <input type="hidden" name="AuthState" value="{{ authstate }}">
+        {% for key, source in sources %}
+          <p>
+            <button type="submit" class="btn btn-primary" name="sourceChoice[{{ key }}]" value="1">
+              {{ source.text is defined ? source.text|translateFromArray : key }}
+            </button>
+          </p>
+        {% endfor %}
+
+        <p>
+          <a class="btn btn-success" href="https://foreningenbs.no/intern/register">{{ "Opprett bruker"|trans }}</a>
+        </p>
+      </form>
+    </div>
+  </div>
+  <p>
+    Dersom du har glemt passord eller har andre problemer, sendt en e-post til
+    <a href='mailto:it-gruppa@foreningenbs.no'>it-gruppa@foreningenbs.no</a>.
+  </p>
+{% endblock %}

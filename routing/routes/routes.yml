@@ -1,0 +1,12 @@
+fbs-google-login-error:
+    path:       /google-login-error
+    defaults:   { _controller: 'SimpleSAML\Module\fbs\Controller\FbsController::google_login_error' }
+    methods: [GET]
+fbs-select-user:
+    path:       /select-user
+    defaults:   { _controller: 'SimpleSAML\Module\fbs\Controller\FbsController::select_user' }
+    methods: [GET, POST]
+fbs-vipps-login-error:
+    path:       /vipps-login-error
+    defaults:   { _controller: 'SimpleSAML\Module\fbs\Controller\FbsController::vipps_login_error' }
+    methods: [GET]

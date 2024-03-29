@@ -100,7 +100,8 @@ class Common {
         );
 
         $context = stream_context_create($opts);
-        return file_get_contents($uri, false, $context);
+        // TODO: handle errors
+        return @file_get_contents($uri, false, $context);
     }
 
     /**
@@ -142,7 +143,7 @@ class Common {
      * @return false on error, array with attributes on success
      * @throws
      */
-    public function tryCredentials($username, $password) {
+    public function tryCredentials($username, $password): false|array {
         $data = array(
             'username' => $username,
             'password' => $password);
@@ -164,11 +165,15 @@ class Common {
         curl_close($ch);
 
         if ($reply === false) {
-            throw new \SimpleSAML\Error\Error('curl_exec failed');
+            throw new \SimpleSAML\Error\Exception('curl_exec failed');
+        }
+
+        if ($status == 401) {
+            return false;
         }
 
         if ($status != 200) {
-            throw new \SimpleSAML\Error\Error('unknown users-api error');
+            throw new \SimpleSAML\Error\Exception('unknown users-api error - got status ' . $status);
         }
 
         $reply = json_decode($reply, true);
@@ -185,7 +190,7 @@ class Common {
      *
      * @return false on error, array with attributes on success
      */
-    public function getUser($username) {
+    public function getUser($username): false|array {
         $json = json_decode($this->apiGet('/user/' . rawurlencode($username)), true);
         if (empty($json['result'])) {
             return false;

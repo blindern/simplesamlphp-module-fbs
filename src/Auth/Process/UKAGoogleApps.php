@@ -2,6 +2,8 @@
 
 namespace SimpleSAML\Module\fbs\Auth\Process;
 
+use SimpleSAML\Assert\Assert;
+
 /**
  * UKA Google Apps Authentication Processing filter
  *
@@ -11,6 +13,8 @@ namespace SimpleSAML\Module\fbs\Auth\Process;
 class UKAGoogleApps extends \SimpleSAML\Auth\ProcessingFilter
 {
     private $_userfile;
+    private $_accounts_url;
+    private $_accounts_url_auth_token;
 
     /**
      * Initialize consent filter
@@ -38,15 +42,9 @@ class UKAGoogleApps extends \SimpleSAML\Auth\ProcessingFilter
      *
      * @param array &$state The state of the response.
      */
-    public function process(&$state)
+    public function process(array &$state): void
     {
-        assert('is_array($state)');
-        assert('array_key_exists("UserID", $state)');
-        assert('array_key_exists("Destination", $state)');
-        assert('array_key_exists("entityid", $state["Destination"])');
-        assert('array_key_exists("metadata-set", $state["Destination"])');
-        assert('array_key_exists("entityid", $state["Source"])');
-        assert('array_key_exists("metadata-set", $state["Source"])');
+        Assert::keyExists($state, "Attributes");
 
         $spEntityId = $state['Destination']['entityid'];
         $idpEntityId = $state['Source']['entityid'];
@@ -92,8 +90,9 @@ class UKAGoogleApps extends \SimpleSAML\Auth\ProcessingFilter
 
         // Save state and redirect
         $id  = \SimpleSAML\Auth\State::saveState($state, 'fbs:request');
-        $url = \SimpleSAML\Module::getModuleURL('fbs/select_user.php');
-        \SimpleSAML\Utils\HTTP::redirectTrustedURL($url, array('StateId' => $id));
+        $url = \SimpleSAML\Module::getModuleURL('fbs/select-user');
+        $httpUtils = new \SimpleSAML\Utils\HTTP();
+        $httpUtils->redirectTrustedURL($url, array('StateId' => $id));
     }
 
     private function getUsernames($username) {

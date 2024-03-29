@@ -5,8 +5,17 @@
   "keywords": ["authentication", "foreningenbs"],
   "type": "simplesamlphp-module",
   "homepage": "https://github.com/blindern/simplesamlphp-module-fbs",
+  "autoload": {
+    "psr-4": {
+        "SimpleSAML\\Module\\fbs\\": "src/"
+    }
+  },
   "require": {
-    "simplesamlphp/composer-module-installer": "~1.1"
+    "simplesamlphp/assert": "^1",
+    "simplesamlphp/composer-module-installer": "^1",
+    "simplesamlphp/saml2": "^4",
+    "simplesamlphp/simplesamlphp": "^2",
+    "symfony/http-foundation": "^6"
   },
   "config": {
     "allow-plugins": {
