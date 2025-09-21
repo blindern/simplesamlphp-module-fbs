@@ -13,13 +13,13 @@
   "require": {
     "simplesamlphp/assert": "^1",
     "simplesamlphp/composer-module-installer": "^1",
-    "simplesamlphp/saml2": "^4",
     "simplesamlphp/simplesamlphp": "^2",
     "symfony/http-foundation": "^6"
   },
   "config": {
     "allow-plugins": {
-      "simplesamlphp/composer-module-installer": true
+      "simplesamlphp/composer-module-installer": true,
+      "simplesamlphp/composer-xmlprovider-installer": true
     }
   }
 }
